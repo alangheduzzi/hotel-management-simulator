@@ -1,0 +1,479 @@
+.sim-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.sim-page .page-heading {
+  margin-bottom: 0;
+}
+.sim-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+  padding: 27px 30px;
+  background: linear-gradient(110deg, #fffef9, #f3f2e8);
+}
+.sim-kicker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #9a8354;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+}
+.sim-control h2 {
+  font-family: Georgia, serif;
+  font-size: 31px;
+  color: #2c493a;
+  font-weight: 400;
+  margin: 11px 0 8px;
+}
+.sim-control p,
+.sim-panel-heading p,
+.sim-report p {
+  font-size: 10px;
+  color: #89917e;
+  line-height: 1.7;
+}
+.sim-advance-buttons {
+  display: flex;
+  gap: 10px;
+}
+.sim-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.sim-metrics .metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 20px;
+}
+.sim-metrics strong {
+  font-size: 25px;
+  letter-spacing: -0.7px;
+  color: #334b36;
+}
+.sim-metrics small {
+  color: #8e9784;
+  font-size: 9px;
+  line-height: 1.6;
+}
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.sim-panel {
+  padding: 23px;
+}
+.sim-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-wrap: wrap;
+  margin-bottom: 19px;
+  color: #7c875f;
+}
+.sim-panel-heading h2 {
+  font-family: Georgia, serif;
+  font-size: 19px;
+  font-weight: 400;
+  color: #334b36;
+}
+.sim-panel-heading p {
+  margin-top: 5px;
+}
+.sim-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eceee6;
+}
+.sim-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #64715b;
+  font-size: 10px;
+  font-weight: 500;
+}
+.sim-form input,
+.sim-form select {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  background: #fdfdf9;
+  border: 1px solid #e1e5d8;
+  border-radius: 5px;
+  color: #3f503a;
+  font-size: 11px;
+  font-family: inherit;
+}
+.sim-form input[type="range"] {
+  padding: 0;
+  margin: 6px 0;
+  accent-color: #315943;
+  cursor: pointer;
+}
+.sim-form .button {
+  align-self: flex-start;
+}
+.sim-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.sim-toggle {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 16px;
+  background: #f4f6ef;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.sim-toggle input {
+  accent-color: #315943;
+  margin-top: 3px;
+  width: 15px;
+  height: 15px;
+}
+.sim-toggle span {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sim-toggle strong {
+  font-size: 11px;
+  color: #42543c;
+}
+.sim-toggle small {
+  font-size: 9px;
+  line-height: 1.7;
+  color: #87917a;
+}
+.sim-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #939b88;
+  margin-top: -8px;
+}
+.sim-explainer {
+  display: flex;
+  gap: 10px;
+  padding: 16px;
+  background: #faf7ed;
+  border: 1px solid #efe9d8;
+  border-radius: 6px;
+  margin-top: 20px;
+  color: #a6905b;
+}
+.sim-explainer svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.sim-explainer p,
+.sim-form-note {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #8c896e;
+}
+.sim-published {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+.sim-published span {
+  font-size: 9px;
+  color: #8c947e;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.sim-published strong {
+  font-size: 17px;
+  color: #3e5539;
+}
+.sim-competitors {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sim-competitors > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #edf0e8;
+  padding-bottom: 13px;
+}
+.sim-competitors > div > span {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.sim-competitors strong {
+  font-size: 11px;
+  color: #4d5d43;
+}
+.sim-competitors small {
+  font-size: 9px;
+  color: #98a08c;
+}
+.sim-competitors b {
+  font-size: 14px;
+  color: #38543f;
+  align-self: center;
+}
+.sim-confirm {
+  padding: 22px;
+  border: 1px solid #d8c595;
+  border-radius: 9px;
+  background: #fff9eb;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+.sim-confirm strong {
+  font-size: 13px;
+  color: #66562e;
+}
+.sim-confirm p {
+  font-size: 10px;
+  line-height: 1.85;
+  color: #8d805f;
+  margin-top: 7px;
+}
+.sim-confirm > div:last-child {
+  display: flex;
+  gap: 9px;
+  flex-shrink: 0;
+}
+.sim-report {
+  padding: 22px 25px;
+}
+.sim-report-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #5f7a4d;
+}
+.sim-report h2 {
+  font-size: 15px;
+  color: #3b5437;
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+.sim-report > div:last-child {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #edf0e7;
+}
+.sim-report > div:last-child > span {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #929980;
+  font-size: 9px;
+}
+.sim-report strong {
+  font-size: 20px;
+  color: #3b563b;
+}
+.sim-negative {
+  color: #a76353 !important;
+}
+.sim-table {
+  width: 100%;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.sim-table small {
+  display: block;
+  font-size: 9px;
+  color: #8c9680;
+  margin-top: 5px;
+}
+.sim-table td {
+  padding: 14px 12px;
+}
+.sim-table th {
+  font-size: 8px;
+  letter-spacing: 0.7px;
+  padding: 12px;
+}
+.sim-table .button {
+  padding: 6px 10px;
+  font-size: 9px;
+}
+.sim-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: #f0f3e9;
+  color: #82946c;
+  text-transform: capitalize;
+  font-size: 8px;
+  white-space: nowrap;
+}
+.sim-status.open {
+  background: #fcf0de;
+  color: #af8750;
+}
+.sim-status.paused,
+.sim-status.recorded {
+  background: #f1f0e8;
+  color: #94927d;
+}
+.sim-events {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sim-event {
+  padding: 16px 0;
+  border-top: 1px solid #edf0e6;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+.sim-event-symbol {
+  background: #f4f3e8;
+  padding: 10px;
+  border-radius: 7px;
+  color: #aa9767;
+  display: flex;
+  flex-shrink: 0;
+}
+.sim-event > div:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+.sim-event-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sim-event h3 {
+  font-size: 11px;
+  font-weight: 600;
+  color: #4a5f40;
+}
+.sim-event p {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #929a86;
+  margin-top: 8px;
+}
+.sim-event small {
+  display: block;
+  font-size: 8px;
+  color: #9fa58f;
+  margin-top: 8px;
+}
+.sim-event .button {
+  align-self: center;
+  flex-shrink: 0;
+}
+.sim-empty {
+  text-align: center;
+  padding: 35px 20px;
+  color: #8c9b78;
+}
+.sim-empty h3 {
+  font-family: Georgia, serif;
+  color: #5e7350;
+  font-size: 19px;
+  font-weight: 400;
+  margin-top: 12px;
+}
+.sim-empty p {
+  font-size: 10px;
+  line-height: 1.8;
+  margin: 10px auto 0;
+  max-width: 440px;
+}
+.sim-page .eyebrow {
+  color: #a18c60;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+@media (max-width: 1100px) {
+  .sim-control {
+    padding: 23px;
+    flex-wrap: wrap;
+  }
+  .sim-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sim-confirm {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .sim-panel {
+    padding: 18px;
+  }
+  .sim-event {
+    flex-wrap: wrap;
+  }
+  .sim-event .button {
+    margin-left: 51px;
+  }
+}
+@media (max-width: 700px) {
+  .sim-grid {
+    grid-template-columns: 1fr;
+  }
+  .sim-control h2 {
+    font-size: 27px;
+  }
+  .sim-advance-buttons {
+    width: 100%;
+  }
+  .sim-advance-buttons .button {
+    flex: 1;
+    padding: 10px 9px;
+  }
+  .sim-metrics {
+    gap: 10px;
+  }
+  .sim-metrics .metric-card {
+    padding: 16px;
+  }
+  .sim-metrics strong {
+    font-size: 22px;
+  }
+  .sim-report > div:last-child {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .sim-page {
+    gap: 16px;
+  }
+  .sim-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .sim-event-symbol {
+    padding: 8px;
+  }
+  .sim-control {
+    padding: 20px;
+  }
+  .sim-confirm {
+    padding: 18px;
+  }
+}

@@ -407,7 +407,13 @@ export function getMetrics(state) {
     adr: soldRooms ? roomRevenue / soldRooms : 0,
     revpar: state.rooms.length ? roomRevenue / state.rooms.length : 0,
     roomRevenue,
-    totalRevenue: entries.reduce((total, entry) => total + entry.amount, 0),
+    totalRevenue: entries
+      .filter((entry) =>
+        ["room", "food", "bar", "room-service", "spa", "other"].includes(
+          entry.type,
+        ),
+      )
+      .reduce((total, entry) => total + entry.amount, 0),
     occupiedRooms: counts.occupied,
     totalRooms: state.rooms.length,
     soldRooms,
@@ -651,6 +657,19 @@ export function updateRoomStatus(state, roomId, status) {
   )
     throw new Error("Choose a valid room status.");
   if (room.status === status) return clone(state);
+  if (
+    room.status === "maintenance" &&
+    status !== "maintenance" &&
+    state.simulation?.events?.some(
+      (event) =>
+        event.roomId === room.id &&
+        event.kind === "equipment" &&
+        event.status === "open",
+    )
+  )
+    throw new Error(
+      "Resolve the equipment repair in General Manager before releasing this room.",
+    );
   if (room.status === "occupied")
     throw new Error("Check out the guest before changing this room’s status.");
   if (status === "occupied")
@@ -675,6 +694,10 @@ export function updateRoomStatus(state, roomId, status) {
 }
 
 export function advanceDay(state) {
+  if (state.schemaVersion >= 2)
+    throw new Error(
+      "Use the General Manager simulation to advance all departments together.",
+    );
   const pendingDepartures = currentReservations(state).filter(
     (reservation) => reservation.checkOut <= state.date,
   );

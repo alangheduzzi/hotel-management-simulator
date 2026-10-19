@@ -35,9 +35,12 @@ import {
   Building2,
   CheckCircle2,
   ShieldCheck,
+  UtensilsCrossed,
+  Wallet,
+  HeartHandshake,
+  BriefcaseBusiness,
 } from "lucide-react";
 import {
-  createInitialState,
   getMetrics,
   getDailyActivity,
   getRoomStatusCounts,
@@ -45,10 +48,23 @@ import {
   checkIn,
   checkOut,
   updateRoomStatus,
-  advanceDay,
   getRevenueSeries,
   cancelReservation,
 } from "./hotel.js";
+
+import {
+  createManagedDemo,
+  validateSave,
+  getFinancials,
+} from "./management.js";
+import { advanceSimulation } from "./simulation.js";
+import FinancePage, { ExecutiveDashboard } from "./FinancePage.jsx";
+import RestaurantPage from "./RestaurantPage.jsx";
+import EmployeesPage from "./EmployeesPage.jsx";
+import ReputationPage from "./ReputationPage.jsx";
+import SimulationPage from "./SimulationPage.jsx";
+import DataControls from "./DataControls.jsx";
+import "./management.css";
 
 const STORE = "aurelia-hotel-v1";
 const money = (value, digits = 0) =>
@@ -92,9 +108,15 @@ const statusColors = {
 };
 const NAV = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
+  { id: "executive", label: "Executive", icon: ChartNoAxesCombined },
   { id: "rooms", label: "Rooms", icon: BedDouble },
   { id: "reservations", label: "Reservations", icon: CalendarDays },
   { id: "guests", label: "Guests", icon: UsersRound },
+  { id: "restaurant", label: "Restaurant & bar", icon: UtensilsCrossed },
+  { id: "employees", label: "People & shifts", icon: UsersRound },
+  { id: "finance", label: "Financial management", icon: Wallet },
+  { id: "reputation", label: "Guest experience", icon: HeartHandshake },
+  { id: "simulation", label: "General Manager", icon: BriefcaseBusiness },
   { id: "revenue", label: "Revenue & analytics", icon: ChartNoAxesCombined },
 ];
 
@@ -107,9 +129,9 @@ function loadState() {
       saved?.ledger &&
       saved?.date
     )
-      return saved;
+      return validateSave(saved);
   } catch {}
-  return createInitialState();
+  return createManagedDemo();
 }
 function Avatar({ guest, small = false }) {
   const palette = ["sage", "rose", "sand", "lilac", "blue"];
@@ -198,6 +220,9 @@ export default function App() {
       ["Revenue per available room", metrics.revpar],
       ["Room revenue", metrics.roomRevenue],
       ["Total hotel revenue", metrics.totalRevenue],
+      ["Operating profit", getFinancials(state).profit],
+      ["Operating margin (%)", getFinancials(state).margin],
+      ["Cash balance", getFinancials(state).cashBalance],
       [],
       [
         "Reservation",
@@ -247,7 +272,9 @@ export default function App() {
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+      <aside
+        className={`sidebar advanced-sidebar ${sidebarOpen ? "open" : ""}`}
+      >
         <a
           className="brand"
           href="#overview"
@@ -434,6 +461,12 @@ export default function App() {
                     guests: "Familiar faces. New stories.",
                     revenue: "A clearer view of growth.",
                     settings: "Make yourself at home.",
+                    executive: "The whole hotel, in balance.",
+                    restaurant: "An exceptional taste of Aurelia.",
+                    employees: "The people behind every stay.",
+                    finance: "Every detail. Every dollar.",
+                    reputation: "A reputation, thoughtfully earned.",
+                    simulation: "The art of hotel leadership.",
                   }[page]
                 }
               </h1>
@@ -449,6 +482,18 @@ export default function App() {
                     revenue: "The numbers behind every memorable stay.",
                     settings:
                       "Your property, preferences, and simulation controls.",
+                    executive:
+                      "One view of your business, your team, and your guests.",
+                    restaurant:
+                      "Fine dining, the lounge bar, and the comfort of room service.",
+                    employees:
+                      "Fifty colleagues. One shared commitment to hospitality.",
+                    finance:
+                      "Connected departments. Consistent financial decisions.",
+                    reputation:
+                      "Listen, respond, and make the next stay even better.",
+                    simulation:
+                      "Make the decisions. See their impact across your hotel.",
                   }[page]
                 }
               </p>
@@ -480,6 +525,18 @@ export default function App() {
           )}
           {page === "overview" && (
             <>
+              <div className="management-bridge">
+                <span>
+                  <strong>A wider view of your hotel.</strong>
+                  <small>
+                    Your team, restaurant, finances, and the decisions that
+                    shape each stay.
+                  </small>
+                </span>
+                <button onClick={() => navigate("executive")}>
+                  Executive overview <ArrowRight size={16} />
+                </button>
+              </div>
               <Metrics metrics={metrics} state={state} />
               <div className="analytics-grid">
                 <RevenueChart state={state} />
@@ -555,12 +612,25 @@ export default function App() {
               <RevenueHistory state={state} />
             </>
           )}
+          {page === "executive" && (
+            <ExecutiveDashboard state={state} onNavigate={navigate} />
+          )}
+          {page === "restaurant" && (
+            <RestaurantPage state={state} act={act} onNavigate={navigate} />
+          )}
+          {page === "employees" && <EmployeesPage state={state} act={act} />}
+          {page === "finance" && <FinancePage state={state} act={act} />}
+          {page === "reputation" && <ReputationPage state={state} act={act} />}
+          {page === "simulation" && <SimulationPage state={state} act={act} />}
           {page === "settings" && (
-            <SettingsPage
-              state={state}
-              act={act}
-              onReset={() => setModal("reset")}
-            />
+            <>
+              <DataControls state={state} onImport={setState} notify={notify} />
+              <SettingsPage
+                state={state}
+                act={act}
+                onReset={() => setModal("reset")}
+              />
+            </>
           )}
           <footer className="page-footer">
             <span>
@@ -627,7 +697,7 @@ export default function App() {
                 <button
                   className="button danger"
                   onClick={() => {
-                    setState(createInitialState());
+                    setState(createManagedDemo());
                     setModal(null);
                     notify("Your sample hotel has been restored.");
                   }}
@@ -1845,16 +1915,16 @@ function SettingsPage({ state, act, onReset }) {
           </div>
         </div>
         <p className="settings-copy">
-          Advance to the next day to simulate a new operating date. Check out
-          any guests due to leave first. Rooms awaiting cleaning keep their
-          status.
+          Advance one day with the General Manager simulation. Due departures,
+          arrivals, housekeeping, payroll, stock, and service scores update
+          together. Visit General Manager for week and month controls.
         </p>
         <button
           className="button primary"
           onClick={() =>
             act(
-              (s) => advanceDay(s),
-              "A new hotel day has begun. Your revenue and arrivals are updated.",
+              (s) => advanceSimulation(s, 1),
+              "A new hotel day has begun. All departments are updated.",
             )
           }
         >
