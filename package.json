@@ -1,0 +1,25 @@
+{
+  "name": "aurelia-hotel-simulator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "build:standalone": "npm run build && node scripts/build-standalone.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test --test-isolation=none tests/*.test.js"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "vite": "^6.1.0"
+  }
+}
